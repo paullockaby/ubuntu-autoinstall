@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+INPUTFILE=$1
+OUTPUTFILE=$2
+
+if test -z "$INPUTFILE"
+then
+    echo "missing input file -- first argument should be an ubuntu ISO file"
+    exit 1
+fi
+if test -z "$OUTPUTFILE"
+then
+    echo "missing output file -- second argument should be the name of a new autoinstall ISO file"
+    exit 1
+fi
+
+CURDIR="$(dirname $0)"
+
+xorriso -indev ${INPUTFILE} -outdev ${OUTPUTFILE} -boot_image any replay \
+  -map "${CURDIR}/nocloud" /nocloud \
+  -map "${CURDIR}/grub.cfg" /boot/grub/grub.cfg \
+  && true
