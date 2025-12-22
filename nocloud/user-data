@@ -4,6 +4,8 @@ autoinstall:
   interactive-sections:
     - storage
     - network
+  refresh-installer:
+    update: true
   source:
     id: ubuntu-server
   locale: "en_US.UTF-8"
@@ -11,16 +13,22 @@ autoinstall:
   keyboard:
     layout: us
   updates: all
-  network:
-    version: 2
-    renderer: networkd
-  storage:
-    layout:
-      name: lvm
+  shutdown: reboot
+  kernel:
+    flavor: hwe
+  apt:
+    fallback: offline-install
+    disable_suites: [backports]
+    disable_components: [restricted, multiverse]
+    conf: |
+      APT::Install-Recommends "false";
+      APT::Install-Suggets "false";
   ssh:
     install-server: true
     allow-pw: false
   user-data:
+    disable_root: true
+    manage_etc_hosts: true
     users:
       - name: paul
         groups: [sudo]
@@ -28,11 +36,21 @@ autoinstall:
         shell: /bin/bash
         sudo: ALL=(ALL) NOPASSWD:ALL
         ssh_authorized_keys:
-          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLJYdct6xs8sJmnqRmSO7QkT0rHSTroul9D+LfgP3TtorwioA6OghWdPwxQhkscQhTQIZIhSYkRnyft0N296vuBHVAxEnjUc5ISOYLlEtNTYvACLE0JixcJQelrZBSnIFLF6v5UmRZ6OqclTP3XwmjUxSTQX8bAoIKNiamKmv8rafCf4/V/Vw2h3+oDkU+cv3QUwsy74GLwydfL+WJw5hjQPOz/rWbQ0fhbZm4WBnpJIuxhHzMqhXxgfTOYvC1ypVCK6J6iCw/7R2NzCXRXxRAQtQntS564DcEAeKginAnWibwbewexmTP7mMDUZthDqpASFZPMLnByvQKpNrF5Kz5 paul
-  packages: []
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXa+XxzkIcpEUon/kJVn140DE/MlJylLxh0c50BHtjY paul@local
+  storage:
+    grub:
+      reorder_uefi: false
+    swap:
+      size: 0
+    layout:
+      name: lvm
+  packages:
+    - less
+    - vim
+    - rsyslog
+    - chrony
+    - cron
+  early-commands:
+    - bash -c /cdrom/nocloud/commands-early.sh
   late-commands:
-    - chmod 444 /etc/update-motd.d/10-help-text
-    - chmod 444 /etc/update-motd.d/50-motd-news
-    #- chmod 444 /etc/update-motd.d/90-updates-available
-    #- chmod 444 /etc/update-motd.d/91-contract-ua-esm-status
-    #- chmod 444 /etc/update-motd.d/91-release-upgrade
+    - bash -c /cdrom/nocloud/commands-late.sh
