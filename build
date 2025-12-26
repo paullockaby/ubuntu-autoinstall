@@ -18,7 +18,7 @@ fi
 
 CURDIR="$(dirname $0)"
 
-xorriso -indev ${INPUTFILE} -outdev ${OUTPUTFILE} -boot_image any replay \
+xorriso -indev "${INPUTFILE}" -outdev "${OUTPUTFILE}" -boot_image any replay \
   -map "${CURDIR}/nocloud" /nocloud \
   -map "${CURDIR}/grub.cfg" /boot/grub/grub.cfg \
   && true

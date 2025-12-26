@@ -1,4 +1,7 @@
-# Ubuntu Autoinstaller
+# Ubuntu "autoinstall" System Installer
+
+> [!TIP]
+> If you want to bootstrap Debian systems, you can look at [my Debian preseed setup repository](https://github.com/paullockaby/debian-preseed).
 
 This is a script for building a new installer for Ubuntu using its "autoinstall" technique. The example in this repository will:
 
@@ -24,6 +27,6 @@ You can run this on any Unix-based system like Linux or macOS. Follow these step
 5. Run the build script: `./build /path/to/ubuntu-24.04.2-live-server-arm64.iso /path/to/ubuntu-24.04-autoinstall-arm64.iso`
 6. Use the new ISO file to build your host.
 
-# Using the Autoinstall ISO
+# Using the autoinstall ISO
 
 Use this ISO just like you would any other install ISO. An autoinstall configured ISO file can build baremetal systems or virtual machines. It is only useful for on-premise instances and is not useful for cloud instances.
