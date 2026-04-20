@@ -3,6 +3,9 @@
 > [!TIP]
 > If you want to bootstrap Debian systems, you can look at [my Debian preseed setup repository](https://github.com/paullockaby/debian-preseed).
 
+> [!IMPORTANT]
+> If you are viewing this repository in GitHub, know that GitHub is [a mirror of the original repository](https://code.lockaby.org/public/ubuntu-autoinstall).
+
 This is a script for building a new installer for Ubuntu using its "autoinstall" technique. The example in this repository will:
 
 * Creates a "paul" user with an SSH `authorized_keys` file and a known good environment.
